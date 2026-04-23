@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CrisisCore — Rapid Crisis Response Platform
+> Google Solution Challenge 2026 | Team Antigravity
 
-## Getting Started
+## Live Demo
+https://your-app.vercel.app
 
-First, run the development server:
+## Demo Login
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@hotel.com | Admin123 |
+| Security | security@hotel.com | Security123 |
+| Medical | medical@hotel.com | Medical123 |
+| Management | mgmt@hotel.com | Mgmt123 |
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack
+- **Frontend**: Next.js 14, Tailwind CSS, deployed on Vercel (free)
+- **Backend**: Next.js API Routes (serverless)
+- **Database**: Firebase Firestore + Realtime Database (Spark free plan)
+- **Auth**: Firebase Authentication (free)
+- **AI**: Google Gemini 1.5 Flash via @google/generative-ai (free)
+- **Notifications**: Firebase Cloud Messaging (free)
+- **Maps**: Google Maps JavaScript API
+
+## Google AI Services Used
+- Gemini 1.5 Flash — emergency triage classification, task generation, incident report writing
+
+## Setup
+1. Clone repo
+2. Copy `.env.example` to `.env.local` and fill in your keys
+3. `npm install && npm run dev`
+
+---
+
+## Vercel Deployment Steps
+1. Push code to GitHub public repo
+2. Go to vercel.com → New Project → Import GitHub repo
+3. Framework: Next.js (auto-detected)
+4. Add all env vars in Vercel dashboard → Settings → Environment Variables
+5. Click Deploy — Vercel gives free URL: https://your-app.vercel.app
+6. Re-deploy auto on every git push to main
+
+## Firebase Free Tier Limits
+- **Firestore**: 50K reads/day, 20K writes/day — more than enough for demo
+- **Realtime DB**: 1GB storage, 10GB/month transfer — fine for prototype  
+- **FCM**: completely free, no limits
+- **Firebase Auth**: 10K users/month free
+- **Firebase Hosting**: NOT needed — using Vercel instead
+
+## Next.js Optimizations Included
+- Image optimization enabled in `next.config.ts`.
+- All Gemini calls route through server-side `/api` handlers so your API key is entirely hidden from the client.
+- Built-in `loading.tsx` skeleton files and `error.tsx` boundaries to ensure robust routing.
+
+---
+
+## Firebase Security Rules
+
+**Firestore Rules:**
+*(Paste in Firebase Console → Firestore → Rules)*
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /staff/{uid} {
+      allow read: if request.auth != null;
+      allow write: if request.auth.uid == uid;
+    }
+    match /incidents/{id} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null;
+    }
+    match /tasks/{id} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+    match /logs/{id} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+    }
+  }
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Realtime Database Rules:**
+*(Paste in Firebase Console → Realtime Database → Rules)*
+```json
+{
+  "rules": {
+    "activeIncident": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    }
+  }
+}
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Google Solution Challenge Submission Answers
 
-## Learn More
+**Problem:** 
+Hotels and hospitals lack real-time unified coordination during emergencies, leading to delayed response and preventable harm.
 
-To learn more about Next.js, take a look at the following resources:
+**Solution:** 
+CrisisCore uses Gemini AI to classify emergencies, auto-generate role-based tasks, and push instant alerts — all coordinated through a live dashboard built on Firebase and Next.js.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Google AI used:** 
+Gemini 1.5 Flash (via @google/generative-ai) for emergency triage classification, auto task generation, and AI-written incident reports.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Cloud deployed:** 
+Yes — Next.js on Vercel, Firebase Firestore/Auth/FCM on Google Cloud.
