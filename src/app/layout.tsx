@@ -10,7 +10,7 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CrisisCore | Rapid Crisis Response",
+  title: "Evac | Rapid Crisis Response",
   description: "Real-time emergency coordination platform",
 };
 

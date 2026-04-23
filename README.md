@@ -1,5 +1,5 @@
-# CrisisCore — Rapid Crisis Response Platform
-> Google Solution Challenge 2026 | Team Antigravity
+# Evac — Rapid Crisis Response Platform
+> Google Solution Challenge 2026 | Team Voxforge
 
 ## Live Demo
 https://your-app.vercel.app
@@ -103,7 +103,7 @@ service cloud.firestore {
 Hotels and hospitals lack real-time unified coordination during emergencies, leading to delayed response and preventable harm.
 
 **Solution:** 
-CrisisCore uses Gemini AI to classify emergencies, auto-generate role-based tasks, and push instant alerts — all coordinated through a live dashboard built on Firebase and Next.js.
+Evac uses Gemini AI to classify emergencies, auto-generate role-based tasks, and push instant alerts — all coordinated through a live dashboard built on Firebase and Next.js.
 
 **Google AI used:** 
 Gemini 1.5 Flash (via @google/generative-ai) for emergency triage classification, auto task generation, and AI-written incident reports.
