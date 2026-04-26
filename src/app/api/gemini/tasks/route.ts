@@ -35,9 +35,9 @@ Return ONLY the raw JSON array. No markdown. No explanation. No backticks. Start
     }
 
     // Write all tasks to Firestore
-    const batch = adminDb.batch();
+    const batch = adminDb().batch();
     tasks.forEach((t: any) => {
-      const taskRef = adminDb.collection('tasks').doc();
+      const taskRef = adminDb().collection('tasks').doc();
       batch.set(taskRef, {
         id: taskRef.id,
         incidentId,

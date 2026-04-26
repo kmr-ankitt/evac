@@ -92,7 +92,11 @@ export default function DashboardPage() {
           {/* Center Column: Map & Log */}
           <div className="flex flex-col gap-4 h-full">
             <div className="shrink-0 rounded-xl overflow-hidden shadow-lg border border-zinc-800">
-               <CrisisMap locationString={activeIncident?.location} />
+               <CrisisMap 
+                locationString={activeIncident?.location}
+                incidentType={activeIncident?.type}
+                severity={activeIncident?.severity}
+              />
             </div>
             <div className="flex-1 min-h-[240px] rounded-xl overflow-hidden shadow-lg border border-zinc-800">
               <EventLog incidentId={activeIncident?.id || null} />

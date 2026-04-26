@@ -7,14 +7,14 @@ export async function POST(request: Request) {
     const { incidentId } = await request.json();
     
     // Fetch Data
-    const incidentDoc = await adminDb.collection('incidents').doc(incidentId).get();
+    const incidentDoc = await adminDb().collection('incidents').doc(incidentId).get();
     if (!incidentDoc.exists) throw new Error("Incident not found");
     const incidentData = incidentDoc.data();
 
-    const tasksSnapshot = await adminDb.collection('tasks').where('incidentId', '==', incidentId).get();
+    const tasksSnapshot = await adminDb().collection('tasks').where('incidentId', '==', incidentId).get();
     const tasksData = tasksSnapshot.docs.map(d => d.data());
 
-    const logsSnapshot = await adminDb.collection('logs').where('incidentId', '==', incidentId).get();
+    const logsSnapshot = await adminDb().collection('logs').where('incidentId', '==', incidentId).get();
     const logsData = logsSnapshot.docs.map(d => d.data());
 
     const prompt = `Generate a formal emergency incident report. Write in plain paragraphs (no markdown, no bullet symbols, no headers with #). Use these section titles in CAPS followed by a colon: EXECUTIVE SUMMARY:, TIMELINE:, ACTIONS BY ROLE:, RESOLUTION:, RECOMMENDATIONS:

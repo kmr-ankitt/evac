@@ -17,10 +17,10 @@ export async function POST() {
       createdBy: 'admin@hotel.com',
     };
     
-    await adminDb.collection('incidents').doc(incidentId).set(incidentData);
+    await adminDb().collection('incidents').doc(incidentId).set(incidentData);
     
     // 2. RTDB
-    await adminRtdb.ref('activeIncident').set(incidentData);
+    await adminRtdb().ref('activeIncident').set(incidentData);
 
     // 3. Tasks
     const tasks = [
@@ -36,9 +36,9 @@ export async function POST() {
       { id: 't10', title: 'Review CCTV of Conference Hall', assignedRole: 'security', status: 'pending', priority: 'high', estimatedMinutes: 20 },
     ];
     
-    const batch = adminDb.batch();
+    const batch = adminDb().batch();
     tasks.forEach(t => {
-      const ref = adminDb.collection('tasks').doc(t.id);
+      const ref = adminDb().collection('tasks').doc(t.id);
       batch.set(ref, { ...t, incidentId, createdAt: now - (44 * 60000) });
     });
 
@@ -62,7 +62,7 @@ export async function POST() {
     ];
 
     logs.forEach((l, i) => {
-      const ref = adminDb.collection('logs').doc();
+      const ref = adminDb().collection('logs').doc();
       batch.set(ref, {
         incidentId,
         message: l.m,

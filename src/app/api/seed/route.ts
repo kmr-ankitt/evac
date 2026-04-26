@@ -16,10 +16,10 @@ export async function GET() {
       try {
         let userRecord;
         try {
-          userRecord = await adminAuth.getUserByEmail(user.email);
+          userRecord = await adminAuth().getUserByEmail(user.email);
         } catch (error: any) {
           if (error.code === 'auth/user-not-found') {
-            userRecord = await adminAuth.createUser({
+            userRecord = await adminAuth().createUser({
               email: user.email,
               password: user.password,
               displayName: user.name,
@@ -31,7 +31,7 @@ export async function GET() {
         }
 
         if (userRecord) {
-          await adminDb.collection('staff').doc(userRecord.uid).set({
+          await adminDb().collection('staff').doc(userRecord.uid).set({
             id: userRecord.uid,
             name: user.name,
             role: user.role,

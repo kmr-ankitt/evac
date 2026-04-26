@@ -8,11 +8,11 @@ const firebaseConfig = {
   // We'll instruct the user to replace these or they will fail. 
   // For hackathon purposes, standard is pasting the config here.
   // We will leave placeholders and note it in the file.
-  apiKey: "REPLACE_WITH_YOUR_API_KEY",
-  authDomain: "REPLACE_WITH_YOUR_AUTH_DOMAIN",
-  projectId: "REPLACE_WITH_YOUR_PROJECT_ID",
-  messagingSenderId: "REPLACE_WITH_YOUR_MESSAGING_SENDER_ID",
-  appId: "REPLACE_WITH_YOUR_APP_ID"
+  apiKey: "AIzaSyCperkxm46dUXF1eXT3GZUh4YaODgvnDt4",
+  authDomain: "evac-bfea6.firebaseapp.com",
+  projectId: "evac-bfea6",
+  messagingSenderId: "738961076952",
+  appId: "1:738961076952:web:ea492ed517a30170c49dad"
 };
 
 firebase.initializeApp(firebaseConfig);
